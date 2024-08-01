@@ -1,17 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation
+} from "react-router-dom";
+import NavBar from './Navbar_Component.tsx';
+import CV from './CV_Component.tsx';
+import Main from './Main_Component.tsx'; // Assuming you have a Main component
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
+const App = () => {
+  const location = useLocation();
+
+  const hideNavBar = location.pathname === '/cv';
+
+  return (
+    <React.StrictMode>
+      {!hideNavBar && <NavBar />}
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/cv" element={<CV />} />
+
+      </Routes>
+    </React.StrictMode>
+  );
+}
+
+const rootContainer = ReactDOM.createRoot(document.getElementById('root'));
+rootContainer.render(
+  <Router>
     <App />
-  </React.StrictMode>
+  </Router>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
