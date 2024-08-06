@@ -121,6 +121,7 @@ body{
     height: 100%;
     background-color: rgb(20, 20, 20, 1);
     object-fit: contain;
+    filter: blur(.25px);
 
 }
 
