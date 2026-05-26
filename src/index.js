@@ -3,16 +3,11 @@ import ReactDOM from 'react-dom';
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
-  useLocation
+  Route
 } from "react-router-dom";
-import Main from './Main_Component.tsx'; 
+import Main from './Main_Component.tsx';
 
 const App = () => {
-  const location = useLocation();
-
-
-
   return (
     <React.StrictMode>
       <Routes>

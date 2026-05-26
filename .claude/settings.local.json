@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat tsconfig.json)",
+      "Bash(ls public/*.png public/*.svg)",
+      "Bash(npx react-scripts *)",
+      "Read(//c/Users/Big_T/.claude/projects/c--UpdatedPortfolio-Updated-Portfolio-Website/**)",
+      "Bash(ls -la)",
+      "Bash(cat MEMORY.md)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Read(//c/Program Files \\(x86\\)/Microsoft/Edge/Application/**)",
+      "Bash(npx -y serve -s build -l 5055)",
+      "Bash(echo \"server starting, pid $!\")",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:5055)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1440,900 --virtual-time-budget=4000 --screenshot=/c/Users/Big_T/AppData/Local/Temp/hero-desktop2.png http://localhost:5055)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=390,844 --virtual-time-budget=4000 --screenshot=/c/Users/Big_T/AppData/Local/Temp/hero-mobile2.png http://localhost:5055)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=3 --window-size=390,844 --virtual-time-budget=4000 --screenshot=/c/Users/Big_T/AppData/Local/Temp/hero-mobile3.png http://localhost:5055)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=3 --window-size=390,150 --virtual-time-budget=3500 --screenshot=/c/Users/Big_T/AppData/Local/Temp/bar.png http://localhost:5055)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"serve -s build\")",
+      "Bash(rm -f /c/Users/Big_T/AppData/Local/Temp/hero-*.png /c/Users/Big_T/AppData/Local/Temp/bar.png /c/Users/Big_T/AppData/Local/Temp/full-*.png)",
+      "Bash(cd \"c:\\\\UpdatedPortfolio\\\\Updated-Portfolio-Website\" && CI=true npx react-scripts build 2>&1 | grep -E \"Compiled|Failed|Error|Line \" | head *)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --force-device-scale-factor=1 --window-size=760,1900 --virtual-time-budget=3500 --screenshot=/c/Users/Big_T/AppData/Local/Temp/diag-760.png http://localhost:5055)",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --force-device-scale-factor=1 --window-size=414,2000 --virtual-time-budget=3500 --screenshot=/c/Users/Big_T/AppData/Local/Temp/diag-414.png http://localhost:5055)",
+      "Bash(command -v magick)",
+      "Bash(command -v convert)",
+      "Bash(echo \"magick: $\\(command -v magick || echo no\\)  convert: $\\(command -v convert || echo no\\)  node: $\\(node -v\\)\")",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1280,820 --virtual-time-budget=9000 --screenshot=/c/Users/Big_T/AppData/Local/Temp/shots/test.png https://glendinningsmith.com)",
+      "Bash(echo \"exit:$?\")",
+      "Bash('/c/Program Files/Google/Chrome/Application/chrome.exe' --headless=new --no-sandbox --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=2700,1500 --virtual-time-budget=4500 --screenshot=/c/Users/Big_T/AppData/Local/Temp/wide.png http://localhost:5055)",
+      "Bash(pkill -f \"remote-debugging-port\")",
+      "Bash(rm -f /c/Users/Big_T/AppData/Local/Temp/s-*.jpg /c/Users/Big_T/AppData/Local/Temp/cap2.mjs)",
+      "Bash(rm -rf /c/Users/Big_T/AppData/Local/Temp/cdp2)",
+      "Bash(node -e ' *)",
+      "Bash(rm -f /c/Users/Big_T/AppData/Local/Temp/hero2.jpg /c/Users/Big_T/AppData/Local/Temp/hero3.jpg /c/Users/Big_T/AppData/Local/Temp/caph.mjs)",
+      "Bash(rm -rf /c/Users/Big_T/AppData/Local/Temp/cdp3)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Big_T\\AppData\\Local\\Temp",
+      "C:\\Users\\Big_T\\AppData\\Local\\Temp\\shots"
+    ]
+  }
+}
