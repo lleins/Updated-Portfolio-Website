@@ -33,7 +33,11 @@
       "Bash(rm -rf /c/Users/Big_T/AppData/Local/Temp/cdp2)",
       "Bash(node -e ' *)",
       "Bash(rm -f /c/Users/Big_T/AppData/Local/Temp/hero2.jpg /c/Users/Big_T/AppData/Local/Temp/hero3.jpg /c/Users/Big_T/AppData/Local/Temp/caph.mjs)",
-      "Bash(rm -rf /c/Users/Big_T/AppData/Local/Temp/cdp3)"
+      "Bash(rm -rf /c/Users/Big_T/AppData/Local/Temp/cdp3)",
+      "Bash(BROWSER=none PORT=3000 npm start)",
+      "Bash(node shot.js)",
+      "Bash(node topclip.js)",
+      "Bash(node mines.js)"
     ],
     "additionalDirectories": [
       "C:\\Users\\Big_T\\AppData\\Local\\Temp",

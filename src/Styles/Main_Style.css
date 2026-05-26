@@ -102,6 +102,7 @@ body.custom-cursor,
 body.custom-cursor a,
 body.custom-cursor button,
 body.custom-cursor .nav-items,
+body.custom-cursor .time-clock,
 body.custom-cursor .project-card,
 body.custom-cursor .proj-thumb,
 body.custom-cursor .proj-track{
@@ -110,6 +111,121 @@ body.custom-cursor .proj-track{
 @media (pointer: coarse){
   .cursor-dot, .cursor-ring{ display: none; }
 }
+
+/* ===================== MINESWEEPER EASTER EGG ===================== */
+.time-clock{ cursor: pointer; }
+
+.ms-overlay{
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: msFade .25s ease;
+}
+@keyframes msFade{ from{ opacity: 0; } to{ opacity: 1; } }
+
+.ms-modal{
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+  animation: msPop .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes msPop{ from{ transform: scale(.9); opacity: 0; } to{ transform: scale(1); opacity: 1; } }
+
+.ms-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 14px;
+}
+.ms-title{
+  font-family: 'Manrope', sans-serif; font-weight: 800;
+  font-size: 20px;
+  color: #ffffff;
+}
+.ms-title .accent{ color: #d42724; }
+.ms-close{
+  background: none;
+  border: none;
+  color: #8a8a8a;
+  font-size: 26px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  transition: color .25s ease;
+}
+.ms-close:hover{ color: #ffffff; }
+
+.ms-bar{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-family: 'Manrope', sans-serif; font-weight: 600;
+  font-size: 13px;
+  color: #cfcfcf;
+}
+.ms-status{ color: #8a8a8a; }
+.ms-status.ms-won{ color: #51cf66; }
+.ms-status.ms-lost{ color: #ff5147; }
+.ms-reset{
+  background: #1a1a1a;
+  border: 1px solid #2b2b2b;
+  color: #cfcfcf;
+  border-radius: 8px;
+  width: 30px; height: 28px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: border-color .25s ease, color .25s ease;
+}
+.ms-reset:hover{ border-color: rgba(212, 39, 36, 0.6); color: #ffffff; }
+
+.ms-grid{
+  display: grid;
+  grid-template-columns: repeat(9, 30px);
+  grid-template-rows: repeat(9, 30px);
+  gap: 3px;
+}
+.ms-cell{
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid #2b2b2b;
+  background: #1f1f1f;
+  border-radius: 5px;
+  font-family: 'Manrope', sans-serif; font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease;
+}
+.ms-cell:hover{ background: #2a2a2a; }
+.ms-cell.is-revealed{
+  background: #0e0e0e;
+  border-color: #1c1c1c;
+  cursor: default;
+}
+.ms-cell.is-mine{ background: #3a1413; border-color: #d42724; }
+
+/* classic minesweeper number colours */
+.ms-cell[data-adj="1"]{ color: #5b9bff; }
+.ms-cell[data-adj="2"]{ color: #51cf66; }
+.ms-cell[data-adj="3"]{ color: #ff6b6b; }
+.ms-cell[data-adj="4"]{ color: #b197fc; }
+.ms-cell[data-adj="5"]{ color: #ffa94d; }
+.ms-cell[data-adj="6"]{ color: #3bc9db; }
+.ms-cell[data-adj="7"]{ color: #ced4da; }
+.ms-cell[data-adj="8"]{ color: #868e96; }
 
 #main_container{
  display: flex;
@@ -267,7 +383,7 @@ body.custom-cursor .proj-track{
    width: 100%;
    min-width: 0;          /* allow this flex item to shrink instead of
                              overflowing when a child (e.g. the carousel) is wide */
-   padding: 25px 25px;
+   padding: 0 25px 0;
    margin-left: 110px !important;
    height: 100%;
 }
@@ -278,18 +394,24 @@ body.custom-cursor .proj-track{
   min-height: 100vh;
 }
 /* shorter sections sit centred within their full-screen height */
-#About, #Contact{
+#About{
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+/* contact centres its content but pins the footer to the very bottom */
+#Contact{
+  display: flex;
+  flex-direction: column;
+}
+#Contact .section-head{ margin-top: auto; }
 /* hero pins the location/time bar at the top, centres the rest */
 #Home{
   display: flex;
   flex-direction: column;
 }
 #Home .hero-inner{
-  margin: auto 0;
+  margin: auto 0;   /* left-aligned, vertically centred on the Y axis */
 }
 
 /* ===== scroll reveal (applied to blocks across the site) ===== */
@@ -366,7 +488,10 @@ body.custom-cursor .proj-track{
        padding, so the gap lives INSIDE the block instead of beside it. */
     margin-left: -51px;
     margin-right: -25px;
-    padding: 60px 50px 100px 51px;
+    /* top padding nudged to ~25px so the Canada/time bar sits centred with the
+       LL logo; bottom scales with the viewport. left/right stay fixed to
+       preserve the flush-to-rail breakout math above */
+    padding: 18px 50px clamp(64px, 7vw, 110px) 51px;
     overflow: hidden;
     /* faint, small grid across the whole hero */
     background-image:
@@ -389,8 +514,8 @@ body.custom-cursor .proj-track{
     filter: blur(85px);
     /* wide, horizontal ellipses = soft ambient wash (not a defined shape) */
     background:
-        radial-gradient(70% 42% at 40% 42%, rgba(212, 39, 36, 0.34) 0%, transparent 72%),
-        radial-gradient(55% 34% at 70% 66%, rgba(120, 22, 22, 0.20) 0%, transparent 75%);
+        radial-gradient(70% 42% at 24% 50%, rgba(212, 39, 36, 0.34) 0%, transparent 72%),
+        radial-gradient(55% 34% at 42% 62%, rgba(120, 22, 22, 0.20) 0%, transparent 75%);
     animation: heroGlow 18s ease-in-out infinite alternate;
 }
 @keyframes heroGlow{
@@ -406,14 +531,14 @@ body.custom-cursor .proj-track{
     position: relative;
     z-index: 2;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 48px;
-    max-width: 1120px;
+    flex-direction: column;
+    align-items: flex-start;   /* text stays left-aligned inside the column */
+    gap: clamp(32px, 3.3vw, 56px);
+    max-width: 660px;
 }
 
 .hero-left{
-    flex: 1;
+    width: 100%;
     max-width: 660px;
 }
 
@@ -436,7 +561,8 @@ body.custom-cursor .proj-track{
 .hero-title{
     font-family: 'Manrope', sans-serif; font-weight: 800;
     color: #ffffff;
-    font-size: 72px;
+    /* 72px at the 1440px reference width; scales smoothly either side */
+    font-size: clamp(40px, 5vw, 80px);
     line-height: 1.03;
     letter-spacing: -1px;
     margin: 0;
@@ -450,14 +576,14 @@ body.custom-cursor .proj-track{
 .hero-subtitle{
     font-family: 'Manrope', sans-serif; font-weight: 700;
     color: #cfcfcf;
-    font-size: 34px;
+    font-size: clamp(20px, 2.4vw, 38px);
     margin: 14px 0 0;
 }
 
 .hero-desc{
     color: #8a8a8a;
     font-family: 'Manrope', sans-serif; font-weight: 400;
-    font-size: 18px;
+    font-size: clamp(16px, 1.25vw, 18px);
     line-height: 1.7;
     max-width: 520px;
     margin: 26px 0 0;
@@ -507,30 +633,6 @@ body.custom-cursor .proj-track{
     z-index: 1;
 }
 
-.hero-right{
-    flex-shrink: 0;
-}
-.hero-photo-ring{
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    padding: 6px;
-    background: linear-gradient(135deg, #d42724, rgba(112, 62, 68, 0.4));
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
-                0 0 0 10px rgba(212, 39, 36, 0.05);
-}
-.hero-photo{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 3px solid #181818;
-    display: block;
-}
-
-
-
-
 
 /*HERO STYLES*/
 
@@ -546,7 +648,7 @@ body.custom-cursor .proj-track{
 #about_title{
     font-family: 'Manrope', sans-serif; font-weight: 800;
     color: #ffffff;
-    font-size: 48px;
+    font-size: clamp(30px, 3.3vw, 52px);
     line-height: 1.03;
     letter-spacing: -1px;
     white-space: pre-wrap;
@@ -692,8 +794,8 @@ line-height: 25px;
 
 /* ===================== ABOUT ME ===================== */
 .about-me{
-    max-width: 1000px;
-    margin: 0 auto;
+    max-width: 1120px;   /* match the hero content width */
+    margin: 0 auto;      /* centre the block within the content area */
     padding: 30px 0 90px;
 }
 .section-head{
@@ -703,13 +805,15 @@ line-height: 25px;
 .section-title{
     font-family: 'Manrope', sans-serif;
     font-weight: 800;
-    font-size: 44px;
+    font-size: clamp(30px, 3vw, 48px);
     line-height: 1.05;
     letter-spacing: -1px;
     color: #ffffff;
     margin: 0;
 }
 .section-title .accent{ color: #d42724; }
+
+/* red period dots are static (no entrance animation) */
 .section-sub{
     font-family: 'Manrope', sans-serif;
     font-weight: 500;
@@ -721,7 +825,7 @@ line-height: 25px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 64px;
+    gap: clamp(36px, 4.4vw, 72px);
 }
 .about-me-text{
     flex: 1;
@@ -739,11 +843,13 @@ line-height: 25px;
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 34px;
+    justify-content: center;
+    gap: 40px;
 }
 .badge-title{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     font-family: 'Manrope', sans-serif;
     font-weight: 700;
@@ -758,16 +864,17 @@ line-height: 25px;
     flex-shrink: 0;
 }
 .badge-list{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
 }
 .badge{
-    padding: 9px 8px;
+    padding: 11px 16px;
     text-align: center;
     font-family: 'Manrope', sans-serif;
     font-weight: 500;
-    font-size: 14px;
+    font-size: 15px;
     color: #cfcfcf;
     background: #1a1a1a;
     border: 1px solid #262626;
@@ -815,7 +922,9 @@ line-height: 25px;
     gap: 14px;
     padding: 18px;
     background: #0f0f0f;
-    transition: background-color .35s ease;
+    transition: background-color .35s ease,
+                opacity .6s cubic-bezier(0.43, 0.104, 0.25, 1),
+                transform .6s cubic-bezier(0.43, 0.104, 0.25, 1);
 }
 .proj-card:hover{ background: #151515; }
 .proj-card-media{
@@ -911,9 +1020,7 @@ line-height: 25px;
 
 /* ===================== CONTACT ===================== */
 .contact{
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 40px 0 60px;
+    padding: 40px 0 0;
     text-align: center;
 }
 .contact-inner{
@@ -973,14 +1080,19 @@ line-height: 25px;
 
 /* ===================== FOOTER ===================== */
 .site-footer{
+    width: 100%;
+    margin-top: auto;        /* pin to the bottom of the Contact section */
+    padding: 22px 0 26px;    /* breathing room so it isn't jammed at the edge */
+    border-top: 1px solid #262626;   /* divider spans the full width */
+}
+.footer-inner{
+    max-width: 1120px;       /* content boxed to the site width */
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 14px;
     flex-wrap: wrap;
-    margin-top: 10px;
-    padding: 26px 0 10px;
-    border-top: 1px solid #262626;
 }
 .footer-name{
     display: inline-flex;
@@ -1007,19 +1119,9 @@ line-height: 25px;
 
 /* ===================== RESPONSIVE ===================== */
 
-/* Small laptops */
-@media (max-width: 1100px){
-    .hero-title{ font-size: 60px; }
-    .hero-subtitle{ font-size: 30px; }
-    .hero-photo-ring{ width: 200px; height: 200px; }
-}
-
-/* Tablets */
+/* Desktop type, spacing & photo now scale fluidly via clamp() above — no
+   stepped font-size breakpoints needed. Tablets just drop projects to 2 cols. */
 @media (max-width: 900px){
-    .hero-inner{ gap: 32px; }
-    .hero-title{ font-size: 52px; }
-    .hero-subtitle{ font-size: 26px; }
-    .hero-photo-ring{ width: 170px; height: 170px; }
     .proj-grid{ grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -1052,6 +1154,7 @@ line-height: 25px;
     }
 
     .side-logo{ display: none; }
+    .side-bottom{ display: none; }   /* hide GitHub icon in the mobile bottom bar */
 
     .nav-images-container{
         flex-direction: row;
@@ -1072,23 +1175,18 @@ line-height: 25px;
         height: 3px;
     }
 
-    /* hero stacks: photo on top, text below; grid stays full-bleed */
+    /* hero: left-aligned text column, full-bleed grid background */
     .hero_container{
         margin-left: -18px;
         margin-right: -18px;
         padding: 24px 18px 50px;
     }
-    .hero-inner{
-        flex-direction: column-reverse;
-        align-items: flex-start;
-        gap: 28px;
-    }
+    .hero-inner{ gap: 28px; }
     .hero-left{ max-width: 100%; }
     .hero-title{ font-size: 44px; }
     .hero-subtitle{ font-size: 23px; }
     .hero-desc{ font-size: 16px; }
-    .hero-cta{ width: 100%; justify-content: center; }
-    .hero-photo-ring{ width: 130px; height: 130px; }
+    .hero-cta{ width: 100%; justify-content: center; font-size: 13.5px; padding: 13px 28px; }
     .hero-blur{ filter: blur(60px); }
     #about_title{ font-size: 36px; }
 
@@ -1102,9 +1200,10 @@ line-height: 25px;
     .projects{ padding-bottom: 70px; }
     .proj-grid{ grid-template-columns: 1fr; }
 
-    /* contact + footer */
-    .contact{ padding: 20px 0 40px; }
-    .site-footer{ justify-content: center; text-align: center; padding-bottom: 20px; }
+    /* contact fills the screen so the footer pins to the very bottom */
+    #Contact{ min-height: 100vh; }
+    .contact{ padding: 20px 0 0; }
+    .footer-inner{ justify-content: center; text-align: center; padding-bottom: 20px; }
 }
 
 /* Small phones */
@@ -1113,6 +1212,5 @@ line-height: 25px;
     .hero-subtitle{ font-size: 20px; }
     #about_title{ font-size: 30px; }
     .section-title{ font-size: 30px; }
-    .badge-list{ grid-template-columns: repeat(2, 1fr); }
     .navbar_name, #time{ font-size: 14px; }
 }
