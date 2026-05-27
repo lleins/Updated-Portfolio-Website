@@ -588,7 +588,6 @@ function Main() {
                     <section id='Projects' className='projects'>
 
                         <div className='section-head fade-in-up'>
-                            <span className='section-eyebrow'>→ Selected Works</span>
                             <h2 className='section-title'>Projects<span className='accent'>.</span></h2>
                             <p className='section-sub'>NDA's keep me from sharing everything I've worked on &mdash; here's a brief snapshot.</p>
                         </div>
